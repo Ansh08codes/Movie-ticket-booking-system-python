@@ -1,3 +1,9 @@
+# -------------------------------------------------------------
+# Movie Ticket Booking App 
+# TODO: need to add a proper database later instead of dicts, 
+# but for now this works fine for testing.
+# -------------------------------------------------------------
+
 movies = {
     1:{
         "name": "Drishyam 3",
@@ -19,57 +25,81 @@ movies = {
      }
 }
 
+# keeping seats hardcoded, prob should make rows/cols dynamic later 
 seats = [
     "A1", "A2", "A3", "A4", "A5",
     "B1", "B2", "B3", "B4", "B5",
     "C1", "C2", "C3", "C4", "C5"]
+
 booked = {
     1: [],
     2: [],
-    3: [] }
+    3: [] 
+}
+
 def present_movies():
-        print("\n========== MOOOOOOVIES ==========")
+        print("\n========== MOOOOOOVIES ==========") # Lol kept the extra o's from the debug phase
+        # let's just loop through dict keys the old school way
         for number in movies:
                 print(number, ".", movies[number]["name"])
                 print("Genre :", movies[number]["genre"])
                 print("Rating:", movies[number]["rating"], "/10")
                 print("Price :", movies[number]["price"])
-                print()
+                print() # empty line spacing
 
 def display_seats(movie_number):
         print("\n========== SEATS ==========" ) 
+        
+        # quick check to see if movie exists even though we usually validate before calling
+        if movie_number not in movies:
+            print("Wait, what movie is this?")
+            return
+
         for seat in seats:
                 if seat in booked[movie_number]:
                         print("[X]", end=" ")
                 else:
                         print("[" + seat + "]", end=" ")
+                
+                # messy newline logic just like I wrote it at 2 AM
                 if seat == "A5" or seat == "B5":
                         print()
-                        print("\nX = Booked") 
+                        
+        print("\nX = Booked") 
 
 def book_ticket():
        present_movies()
        try:
                 movie_number = int(input("Enter movie number: "))
                 if movie_number not in movies:
-                        print("Invalid movie number.")
+                        print("Invalid movie number. Try again.")
                         return
+                
                 display_seats(movie_number)
                 seat = input("Enter seat number: ").upper()
+                
                 if seat not in seats:
-                        print("Invalid seat number.")
+                        print("Bro, that seat doesn't even exist.")
                         return
+                        
                 if seat in booked[movie_number]:
-                        print("Seat is already booked.")
+                        print("Ah, seat is already booked man!")
                         return
+                        
                 booked[movie_number].append(seat)
+                
+                # grab the price 
                 price = movies[movie_number]["price"]
+                
                 print("\n========== BOOKING CONFIRMED ==========")
                 print("Movie :", movies[movie_number]["name"])
                 print("Seat  :", seat)
                 print("Amount: ₹", price)
+                print("Enjoy the show!! 🍿")
+                
        except ValueError:
-                print("Please enter a valid number.")
+                print("Please enter a valid number, come on.")
+
 def cancel_ticket():
        present_movies()
        try: 
@@ -77,20 +107,24 @@ def cancel_ticket():
                 if movie_number not in movies:
                       print("Invalid movie number.")
                       return
+                      
                 display_seats(movie_number) 
                 seat = input("Enter seat number to cancel: ").upper()
+                
+                # checking if it's actually booked before removing
                 if seat in booked[movie_number]:
                       booked[movie_number].remove(seat)
                       print("Booking cancelled successfully.") 
                 else:
-                      print("This seat is not booked.")    
+                      print("Hmm... This seat is not even booked yet.")    
        except ValueError:
                 print("Please enter a valid number.")
 
 def main():
+    # Main app loop
     while True:
             print("\n-------------------------------")
-            print("   MOVIE TICKET BOOKING")
+            print("   MOVIE TICKET BOOKING SYSTEM")
             print("---------------------------------")
             print("1. Display Movies")
             print("2. Display Seats")
@@ -99,9 +133,11 @@ def main():
             print("5. Exit")
 
             choice = input("Enter your choice: ")  
+            
             if choice == "1":
                         present_movies() 
             elif choice == "2":
+                        # copying code here instead of calling a helper function cleanly, oops
                         present_movies()
                         try:
                                  movie_number = int(input("Enter movie number: "))
@@ -117,16 +153,10 @@ def main():
             elif choice == "4":
                         cancel_ticket()
             elif choice == "5":
-                        print("Thank you Fam!")
+                        print("Thank you Fam! Catch you later.")
                         break
-                            
             else:
-                        print("Invalid choice.")
+                        print("Invalid choice, pick between 1-5.")
 
 if __name__ == "__main__":
-    main()        
-    
-                
-                                           
-
-
+    main()
