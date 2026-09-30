@@ -1,7 +1,7 @@
 # -------------------------------------------------------------
-# Movie Ticket Booking App 
-# TODO: need to add a proper database later instead of dicts, 
-# but for now this works fine for testing.
+# Movie Ticket Boooooooooking
+# need to add a proper database later instead of dicts, 
+# But for now this works fine for testing.
 # -------------------------------------------------------------
 
 movies = {
@@ -25,7 +25,7 @@ movies = {
      }
 }
 
-# keeping seats hardcoded, prob should make rows/cols dynamic later 
+# keeping seats like when we use apps like bookmyshow lala 
 seats = [
     "A1", "A2", "A3", "A4", "A5",
     "B1", "B2", "B3", "B4", "B5",
@@ -61,7 +61,7 @@ def display_seats(movie_number):
                 else:
                         print("[" + seat + "]", end=" ")
                 
-                # messy newline logic just like I wrote it at 2 AM
+                # Tagda logic 2 bje likha
                 if seat == "A5" or seat == "B5":
                         print()
                         
@@ -111,7 +111,7 @@ def cancel_ticket():
                 display_seats(movie_number) 
                 seat = input("Enter seat number to cancel: ").upper()
                 
-                # checking if it's actually booked before removing
+                # checking if it is actually booked before removing
                 if seat in booked[movie_number]:
                       booked[movie_number].remove(seat)
                       print("Booking cancelled successfully.") 
@@ -121,7 +121,7 @@ def cancel_ticket():
                 print("Please enter a valid number.")
 
 def main():
-    # Main app loop
+    # Asli cheez
     while True:
             print("\n-------------------------------")
             print("   MOVIE TICKET BOOKING SYSTEM")
